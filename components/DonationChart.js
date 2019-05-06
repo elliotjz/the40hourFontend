@@ -5,6 +5,7 @@ import { Chart } from 'react-google-charts'
 import { distanceInWordsStrict } from 'date-fns'
 import Typography from '@material-ui/core/Typography'
 import { Button, CircularProgress } from '@material-ui/core'
+import { Line } from 'rc-progress';
 
 import { colors, comparePlayerScores } from '../helpers'
 import Chips from './Chips'
@@ -22,6 +23,10 @@ const styles = theme => ({
   },
   title: {
     marginBottom: '20px',
+  },
+  progress: {
+    maxWidth: '500px',
+    margin: '0 auto 50px auto',
   },
   loader: {
     margin: 'auto',
@@ -222,6 +227,7 @@ class DonationChart extends Component {
       totalDonated,
       totalTarget,
     } = this.state
+    const percentageOfTarget = totalDonated / totalTarget * 100
 
     const parsedDonations = this.parseDonations(donationData, chartDomainIndex, donorAmounts, excludedPeople)
     let parsedData
@@ -232,15 +238,19 @@ class DonationChart extends Component {
     }
     chartOptions.colors = parsedColors
     console.log(parsedData);
-    
+
     return (
       <div className={classes.container}>
         <Typography variant="h4" className={classes.title}>
           The 40 Hour Jammin' Donation Leaderboard
         </Typography>
-        <Typography variant="h4" className={classes.title}>
-          Total Donated - ${totalDonated} / ${totalTarget}
+        <Typography variant="h6" className={classes.title}>
+        Total Donated: ${totalDonated} 💰 Total Target: ${totalTarget}
         </Typography>
+        <div className={classes.progress}>
+        <Typography variant="body1">Progress {percentageOfTarget.toString().substr(0, 4)}%</Typography>
+          <Line percent={percentageOfTarget} strokeWidth="2" strokeColor="#3f51b5" trailColor="#a1aae0" />
+        </div>
         {parsedData !== undefined && parsedData.length > 1 ? (
           <div className={classes.root}>
             <Chips

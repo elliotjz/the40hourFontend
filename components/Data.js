@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { Button, CircularProgress, Typography } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import Link from '@material-ui/core/Link';
 
 import { ScrapeContext } from './ScrapeContext'
@@ -37,7 +37,7 @@ const Data = ({ classes }) => {
 
   return (
     <div className={classes.container}>
-    
+
       {donationData ?
         <DonationChart donationData={donationData} names={names} /> :
         <p>Loading...</p>
