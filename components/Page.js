@@ -9,7 +9,7 @@ function useScrapes() {
   // Fetch Function
   async function fetchScrapes() {
     console.log("fetching...");
-    const url = 'https://the40hourbackend.herokuapp.com/api/data'
+    const url = 'https://the40hourbackend.herokuapp.com/api/data' || 'http://localhost:5000/api/data'
     console.log(`api URL: ${url}`);
     const res = await fetch(url)
     const data = await res.json()

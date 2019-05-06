@@ -51,24 +51,31 @@ class DonationChart extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      chartDomainIndex: 4,
+      chartDomainIndex: 3,
       donorAmounts: [],
       excludedPeople: [],
       parsedDonations: null,
       totalDonated: null,
+      totalTarget: null,
     }
   }
 
   componentDidMount() {
+    this.updateTotalAndChips();
+  }
+  
+  updateTotalAndChips() {
     const { donationData, names } = this.props
     
     const donorAmounts =  this.getMostRecentAmounts(donationData, names)
     const excludedPeople = donorAmounts.slice(10).map(player => player[0])
     const totalDonated = donorAmounts.reduce((acc, donor) => acc + donor[1], 0)
+    const totalTarget = donorAmounts.reduce((acc, donor) => acc + donor[2], 0)
     this.setState({
       donorAmounts,
       excludedPeople,
       totalDonated,
+      totalTarget,
     })
   }
 
@@ -80,7 +87,7 @@ class DonationChart extends Component {
         person = donationData[i].people.find(el => el.name === name)
         i--
       }
-      return [name, person.amount]
+      return [name, person.amount, person.target]
     })
     let sorted = donorAmounts.sort(comparePlayerScores)
     return sorted
@@ -212,7 +219,8 @@ class DonationChart extends Component {
       chartDomainIndex,
       donorAmounts,
       excludedPeople,
-      totalDonated
+      totalDonated,
+      totalTarget,
     } = this.state
 
     const parsedDonations = this.parseDonations(donationData, chartDomainIndex, donorAmounts, excludedPeople)
@@ -223,16 +231,15 @@ class DonationChart extends Component {
       parsedColors = parsedDonations[1]
     }
     chartOptions.colors = parsedColors
-    /* if (donationData) {
-      console.log(`donationData length = ${donationData.length}`);
-    } */
+    console.log(parsedData);
+    
     return (
       <div className={classes.container}>
         <Typography variant="h4" className={classes.title}>
           The 40 Hour Jammin' Donation Leaderboard
         </Typography>
         <Typography variant="h4" className={classes.title}>
-          Total Donated - ${totalDonated}
+          Total Donated - ${totalDonated} / ${totalTarget}
         </Typography>
         {parsedData !== undefined && parsedData.length > 1 ? (
           <div className={classes.root}>
