@@ -242,7 +242,7 @@ class DonationChart extends Component {
     return (
       <div className={classes.container}>
         <Typography variant="h4" className={classes.title}>
-          The 40 Hour Jammin' Donation Leaderboard
+          The 40 Hour Jammin' Donation Tally
         </Typography>
         <Typography variant="h6" className={classes.title}>
         Total Donated: ${totalDonated} 💰 Total Target: ${totalTarget}
@@ -251,6 +251,7 @@ class DonationChart extends Component {
         <Typography variant="body1">Progress {percentageOfTarget.toString().substr(0, 4)}%</Typography>
           <Line percent={percentageOfTarget} strokeWidth="2" strokeColor="#3f51b5" trailColor="#a1aae0" />
         </div>
+        <Typography variant="h6">Thanks to everyone who has donated so far, big or small. ❤️</Typography>
         {parsedData !== undefined && parsedData.length > 1 ? (
           <div className={classes.root}>
             <Chips
