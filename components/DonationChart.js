@@ -57,31 +57,8 @@ class DonationChart extends Component {
     super(props)
     this.state = {
       chartDomainIndex: 2,
-      donorAmounts: [],
-      excludedPeople: [],
-      parsedDonations: null,
-      totalDonated: null,
-      totalTarget: null,
+      excludedPeople: null,
     }
-  }
-
-  componentDidMount() {
-    this.updateTotalAndChips();
-  }
-  
-  updateTotalAndChips() {
-    const { donationData, names } = this.props
-    
-    const donorAmounts =  this.getMostRecentAmounts(donationData, names)
-    const excludedPeople = donorAmounts.slice(10).map(player => player[0])
-    const totalDonated = donorAmounts.reduce((acc, donor) => acc + donor[1], 0)
-    const totalTarget = donorAmounts.reduce((acc, donor) => acc + donor[2], 0)
-    this.setState({
-      donorAmounts,
-      excludedPeople,
-      totalDonated,
-      totalTarget,
-    })
   }
 
   getMostRecentAmounts(donationData, names) {
@@ -99,7 +76,19 @@ class DonationChart extends Component {
   }
 
   onChipClick = name => {
-    const { excludedPeople } = this.state
+    // If excluded people has been set in state, use that
+    // Otherwise, use the props to calculate it
+    const { excludedPeople: exclState } = this.state
+    let excludedPeople
+    if (exclState) {
+      excludedPeople = exclState
+    } else {
+      const { donationData, names } = this.props
+      const donorAmounts =  this.getMostRecentAmounts(donationData, names)
+      excludedPeople = donorAmounts.slice(10).map(player => player[0])
+    }
+
+    // Add or remove the name that was clicked
     if (excludedPeople.includes(name)) {
       const index = excludedPeople.indexOf(name)
       excludedPeople.splice(index, 1)
@@ -130,15 +119,10 @@ class DonationChart extends Component {
     })
   }
 
-  parseDonations(donationData, chartDomainIndexParam, donorAmountsParam, excludedPeopleParam) {
+  parseDonations(donationData, donorAmounts, excludedPeople) {
     // Get the domain index
-    const chartDomainIndex =
-      chartDomainIndexParam === null || chartDomainIndexParam === undefined
-        ? this.state.chartDomainIndex
-        : chartDomainIndexParam
+    const { chartDomainIndex } = this.state
 
-    const excludedPeople = excludedPeopleParam || this.state.excludedPeople
-    const donorAmounts = donorAmountsParam || this.state.donorAmounts
     const parsedColors = colors.slice()
     const colorsToRemove = []
 
@@ -189,8 +173,9 @@ class DonationChart extends Component {
               // Use the previous scrape as a starting point
               const amounts = people.map((name, i) => {
                 const person = prevScrape.people.find(el => el.name === name)
-                const amount = person ? person.amount : parsedData[parsedData.length - 1][i + 1]
-                return amount
+                if (person) return person.amount
+                const lastValue = parsedData[parsedData.length - 1][i + 1]
+                return (typeof lastValue === "string") ? undefined : lastValue
               })
 
               parsedData.push([xLabel, ...amounts])
@@ -204,8 +189,9 @@ class DonationChart extends Component {
           // Get each person's amount from scrape
           const amounts = people.map((name, i) => {
             const person = scrape.people.find(el => el.name === name)
-            const amount = person ? person.amount : parsedData[parsedData.length - 1][i + 1]
-            return amount
+            if (person) return person.amount
+            const lastValue = parsedData[parsedData.length - 1][i + 1]
+            return (typeof lastValue === "string") ? undefined : lastValue
           })
 
           parsedData.push([xLabel, ...amounts])
@@ -220,21 +206,22 @@ class DonationChart extends Component {
   }
 
   render() {
-    const { classes, donationData } = this.props
-    const {
-      chartDomainIndex,
-      donorAmounts,
-      excludedPeople,
-      totalDonated,
-      totalTarget,
-    } = this.state
+    const { classes, donationData, names } = this.props
+    const { chartDomainIndex } = this.state
 
+    const donorAmounts =  this.getMostRecentAmounts(donationData, names)
+    const excludedPeople = this.state.excludedPeople ?
+      this.state.excludedPeople :
+      donorAmounts.slice(10).map(player => player[0])
+
+    const totalDonated = donorAmounts.reduce((acc, donor) => acc + donor[1], 0)
+    const totalTarget = donorAmounts.reduce((acc, donor) => acc + donor[2], 0)
     const percentageOfTarget = totalDonated / totalTarget * 100
     const tdFormated = new Intl.NumberFormat().format(totalDonated)
     const ttFormated = new Intl.NumberFormat().format(totalTarget)
 
+    const parsedDonations = this.parseDonations(donationData, donorAmounts, excludedPeople)
 
-    const parsedDonations = this.parseDonations(donationData, chartDomainIndex, donorAmounts, excludedPeople)
     let parsedData
     let parsedColors
     if (parsedDonations) {
