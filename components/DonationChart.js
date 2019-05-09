@@ -227,7 +227,11 @@ class DonationChart extends Component {
       totalDonated,
       totalTarget,
     } = this.state
+
     const percentageOfTarget = totalDonated / totalTarget * 100
+    const tdFormated = new Intl.NumberFormat().format(totalDonated)
+    const ttFormated = new Intl.NumberFormat().format(totalTarget)
+
 
     const parsedDonations = this.parseDonations(donationData, chartDomainIndex, donorAmounts, excludedPeople)
     let parsedData
@@ -245,7 +249,7 @@ class DonationChart extends Component {
           The 40 Hour Jammin' Donation Tally
         </Typography>
         <Typography variant="h6" className={classes.title}>
-        Total Donated: ${totalDonated} 💰 Total Target: ${totalTarget}
+        Total Donated: ${tdFormated} 💰 Total Target: ${ttFormated}
         </Typography>
         <div className={classes.progress}>
         <Typography variant="body1">Progress {percentageOfTarget.toString().substr(0, 4)}%</Typography>
