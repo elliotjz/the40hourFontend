@@ -30,7 +30,9 @@ const styles = theme => ({
 })
 
 const Data = ({ classes }) => {
-  const { scrapes, fetchScrapes } = useContext(ScrapeContext)
+  const { data, fetchScrapes } = useContext(ScrapeContext)
+  const { scrapes, loading } = data
+
   const donationData = scrapes ? scrapes.donations : null
   const names = scrapes ? scrapes.names : null
 
@@ -46,9 +48,10 @@ const Data = ({ classes }) => {
         size="small"
         variant='contained'
         onClick={fetchScrapes}
+        disabled={loading}
         className={classes.button}
       >
-        Refresh Data
+        {loading ? "Refreshing Data..." : "Refresh Data"}
       </Button>
       <div className={classes.infoContainer}>
         <Typography variant='h5' className={classes.text}>

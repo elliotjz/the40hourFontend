@@ -4,24 +4,25 @@ import { ScrapeProvider } from './ScrapeContext'
 // Custom Hook
 function useScrapes() {
   // Initial State inside hook
-  const [scrapes, setScrapes] = useState({})
+  const [data, setScrapes] = useState({})
 
   // Fetch Function
   async function fetchScrapes() {
+    setScrapes({ ...data, loading: true })
     console.log("fetching...");
     const url = 'https://the40hourbackend.herokuapp.com/api/data' || 'http://localhost:5000/api/data'
     console.log(`api URL: ${url}`);
     const res = await fetch(url)
-    const data = await res.json()
+    const scrapes = await res.json()
     console.log("done");
-    setScrapes(data)
+    setScrapes({ loading: false, scrapes })
   }
 
   // Did Mount / did Update
   useEffect(() => {
     fetchScrapes()
   }, [])
-  return { scrapes, fetchScrapes }
+  return { data, fetchScrapes }
 }
 
 export default function Page({ children }) {
