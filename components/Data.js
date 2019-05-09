@@ -30,7 +30,6 @@ const styles = theme => ({
 })
 
 const Data = ({ classes }) => {
-  console.log(classes);
   const { scrapes, fetchScrapes } = useContext(ScrapeContext)
   const donationData = scrapes ? scrapes.donations : null
   const names = scrapes ? scrapes.names : null

@@ -56,7 +56,7 @@ class DonationChart extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      chartDomainIndex: 3,
+      chartDomainIndex: 2,
       donorAmounts: [],
       excludedPeople: [],
       parsedDonations: null,
@@ -160,15 +160,16 @@ class DonationChart extends Component {
       parsedData[0].push(...people)
 
       // Get the interval for the chart
+      const currentTime = new Date()
       const { interval, samplesInDomain } = chartDomains[chartDomainIndex]
-      const starTimestamp = Date.now() - interval * samplesInDomain
+      const startTimestamp = currentTime - interval * samplesInDomain
 
       // Add a row for each interval
       let scrapeIterator = 0
       let scrape
       let prevScrape
-      for (let timestamp = starTimestamp; timestamp <= Date.now(); timestamp += interval) {
-        const xLabel = distanceInWordsStrict(new Date(timestamp), new Date()) + " ago"
+      for (let timestamp = startTimestamp; timestamp <= currentTime; timestamp += interval) {
+        const xLabel = distanceInWordsStrict(new Date(timestamp), currentTime) + " ago"
 
         // Find a scrape for this timestamp
         scrape = donationData[scrapeIterator]
@@ -187,7 +188,7 @@ class DonationChart extends Component {
             } else {
               // Use the previous scrape as a starting point
               const amounts = people.map((name, i) => {
-                const person = scrape.people.find(el => el.name === name)
+                const person = prevScrape.people.find(el => el.name === name)
                 const amount = person ? person.amount : parsedData[parsedData.length - 1][i + 1]
                 return amount
               })
