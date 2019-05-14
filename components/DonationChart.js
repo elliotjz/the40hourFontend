@@ -219,17 +219,22 @@ class DonationChart extends Component {
       donorAmounts.slice(10).map(player => player[0])
 
     const { heroAmount } = donationData[donationData.length - 1]
+    const heroTarget = 40000
 
-    const totalDonated = donorAmounts.reduce((acc, donor) => acc + donor[1], 0)
+    const fbAmount = donorAmounts.reduce((acc, donor) => acc + donor[1], 0)
+    const fbTarget = donorAmounts.reduce((acc, donor) => acc + donor[2], 0)
 
-    const totalTarget = donorAmounts.reduce((acc, donor) => acc + donor[2], 0)
+    const totalAmount = heroAmount + fbAmount
+    const totalTarget = heroTarget + fbTarget
+    
+    const percentageOfTarget = totalAmount / totalTarget * 100
 
-    const percentageOfTarget = (totalDonated + heroAmount) / totalTarget * 100
-
-    const heroFormated = new Intl.NumberFormat().format(heroAmount)
-    const tdFormated = new Intl.NumberFormat().format(totalDonated)
+    const haFormated = new Intl.NumberFormat().format(heroAmount)
+    const htFormated = new Intl.NumberFormat().format(heroTarget)
+    const fbaFormated = new Intl.NumberFormat().format(fbAmount)
+    const fbtFormated = new Intl.NumberFormat().format(fbTarget)
+    const taFormated = new Intl.NumberFormat().format(totalAmount)
     const ttFormated = new Intl.NumberFormat().format(totalTarget)
-    const grandTotal = new Intl.NumberFormat().format(heroAmount + totalDonated)
 
     const parsedDonations = this.parseDonations(donationData, donorAmounts, excludedPeople)
 
@@ -248,13 +253,13 @@ class DonationChart extends Component {
           The 40 Hour Jammin' Donation Tally
         </Typography>
         <Typography variant="h6" className={classes.h6}>
-          Donated on Facebook: ${tdFormated}
+          Facebook Donated: ${fbaFormated} 💰 Target: ${fbtFormated}
         </Typography>
         <Typography variant="h6" className={classes.h6}>
-          Donated on Everyday Hero: ${heroFormated}
+          Everyday Hero Donated: ${haFormated} 💰 Target: ${htFormated}
         </Typography>
         <Typography variant="h5" className={classes.title}>
-          Grand Total: ${grandTotal} 💰 Target: ${ttFormated}
+          Total Donated: ${taFormated} 💰 Target: ${ttFormated}
         </Typography>
         <div className={classes.progress}>
         <Typography variant="body1">Progress {percentageOfTarget.toString().substr(0, 4)}%</Typography>
