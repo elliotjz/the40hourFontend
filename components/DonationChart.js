@@ -24,6 +24,10 @@ const styles = theme => ({
   title: {
     marginBottom: '20px',
   },
+  h6: {
+    marginBottom: '20px',
+    color: '#777',
+  },
   progress: {
     maxWidth: '500px',
     margin: '0 auto 50px auto',
@@ -214,11 +218,18 @@ class DonationChart extends Component {
       this.state.excludedPeople :
       donorAmounts.slice(10).map(player => player[0])
 
+    const { heroAmount } = donationData[donationData.length - 1]
+
     const totalDonated = donorAmounts.reduce((acc, donor) => acc + donor[1], 0)
+
     const totalTarget = donorAmounts.reduce((acc, donor) => acc + donor[2], 0)
-    const percentageOfTarget = totalDonated / totalTarget * 100
+
+    const percentageOfTarget = (totalDonated + heroAmount) / totalTarget * 100
+
+    const heroFormated = new Intl.NumberFormat().format(heroAmount)
     const tdFormated = new Intl.NumberFormat().format(totalDonated)
     const ttFormated = new Intl.NumberFormat().format(totalTarget)
+    const grandTotal = new Intl.NumberFormat().format(heroAmount + totalDonated)
 
     const parsedDonations = this.parseDonations(donationData, donorAmounts, excludedPeople)
 
@@ -236,8 +247,14 @@ class DonationChart extends Component {
         <Typography variant="h4" className={classes.title}>
           The 40 Hour Jammin' Donation Tally
         </Typography>
-        <Typography variant="h6" className={classes.title}>
-        Total Donated: ${tdFormated} 💰 Total Target: ${ttFormated}
+        <Typography variant="h6" className={classes.h6}>
+          Donated on Facebook: ${tdFormated}
+        </Typography>
+        <Typography variant="h6" className={classes.h6}>
+          Donated on Everyday Hero: ${heroFormated}
+        </Typography>
+        <Typography variant="h5" className={classes.title}>
+          Grand Total: ${grandTotal} 💰 Target: ${ttFormated}
         </Typography>
         <div className={classes.progress}>
         <Typography variant="body1">Progress {percentageOfTarget.toString().substr(0, 4)}%</Typography>
