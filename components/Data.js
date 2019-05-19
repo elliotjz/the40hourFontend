@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Button, Typography } from '@material-ui/core'
 import Link from '@material-ui/core/Link';
@@ -36,6 +36,10 @@ const Data = ({ classes }) => {
   const donationData = scrapes ? scrapes.donations : null
   const names = scrapes ? scrapes.names : null
 
+  useInterval(() => {
+   fetchScrapes()
+  }, 30 * 1000)
+
   return (
     <div className={classes.container}>
 
@@ -53,7 +57,7 @@ const Data = ({ classes }) => {
       >
         {loading ? "Refreshing Data..." : "Refresh Data"}
       </Button>
-      <div className={classes.infoContainer}>
+      <footer className={classes.infoContainer}>
         <Typography variant='h5' className={classes.text}>
           <Link href="https://www.the40hourjammin.com">The 40 hour jammin</Link> is being held from May 17 until 19 on Magnetic Island, Queensland.
           To support the cause and move your favorite musician up the leaderboard, <Link href="https://www.the40hourjammin.com/artists">donate</Link>.
@@ -65,9 +69,29 @@ const Data = ({ classes }) => {
         <Typography variant="body1" className={classes.fineprint}>
           This project is open source and was made by Elliot Zoerner. Find the source code <Link href="https://github.com/elliotjz/the40hourFontend">here</Link>.
         </Typography>
-      </div>
+      </footer>
     </div>
   )
+}
+
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
 }
 
 export default withStyles(styles)(Data)
