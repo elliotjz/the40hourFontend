@@ -36,10 +36,6 @@ const Data = ({ classes }) => {
   const donationData = scrapes ? scrapes.donations : null
   const names = scrapes ? scrapes.names : null
 
-  useInterval(() => {
-   fetchScrapes()
-  }, 30 * 1000)
-
   return (
     <div className={classes.container}>
 
@@ -72,26 +68,6 @@ const Data = ({ classes }) => {
       </footer>
     </div>
   )
-}
-
-function useInterval(callback, delay) {
-  const savedCallback = useRef();
-
-  // Remember the latest callback.
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  // Set up the interval.
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
 }
 
 export default withStyles(styles)(Data)
