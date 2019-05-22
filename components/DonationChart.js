@@ -224,7 +224,7 @@ class DonationChart extends Component {
     const fbAmount = donorAmounts.reduce((acc, donor) => acc + donor[1], 0)
     const fbTarget = donorAmounts.reduce((acc, donor) => acc + donor[2], 0)
 
-    const totalAmount = heroAmount + fbAmount
+    const totalAmount = heroAmount + fbAmount + 6000
     const totalTarget = heroTarget + fbTarget
     
     const percentageOfTarget = totalAmount / totalTarget * 100
@@ -257,6 +257,9 @@ class DonationChart extends Component {
         </Typography>
         <Typography variant="h6" className={classes.h6}>
           Everyday Hero Donated: ${haFormated} 💰 Target: ${htFormated}
+        </Typography>
+        <Typography variant="h6" className={classes.h6}>
+          Donated by the Graeme Wood Foundation: $6,000
         </Typography>
         <Typography variant="h5" className={classes.title}>
           Total Donated: ${taFormated} 💰 Target: ${ttFormated}
