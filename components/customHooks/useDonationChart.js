@@ -101,14 +101,15 @@ export const useDonationChart = (props) => {
         scrapeIterator < donationHistory.length - 1
       ) {
         scrapeIterator += 1;
-        prevScrape = scrape;
-        scrape = donationHistory[scrapeIterator];
+        prevScrape = { ...scrape };
+        scrape = { ...donationHistory[scrapeIterator] };
       }
 
       const isScrapeTooRecent = scrape.date > timestamp + interval;
       if (isScrapeTooRecent) {
-        if (parsedData.length === 1) {
-          // No data added yet
+        // console.log('scrape is too recent');
+        const isStart = parsedData.length === 1;
+        if (isStart) {
           if (!prevScrape) {
             // Records don't go back this far, so push an undefined row
             parsedData.push([xLabel, ...people.map(el => undefined)]);
