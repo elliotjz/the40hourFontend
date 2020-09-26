@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { DonationDataProvider } from './DonationDataContext'
 
+const BASE_URL = 'https://the40hourbackend.herokuapp.com' || 'http://localhost:5000';
+
 function useDonationData() {
   const [donationData, setDonationData] = useState({})
 
@@ -8,26 +10,25 @@ function useDonationData() {
     setDonationData({
       ...donationData,
       loading: true
-    })
-    const url = 'http://localhost:5000/api/data'; // 'https://the40hourbackend.herokuapp.com/api/data' || 
-    const res = await fetch(url)
-    const data = await res.json()
+    });
+    const res = await fetch(`${BASE_URL}/api/data`);
+    const data = await res.json();
     setDonationData({ loading: false, donationHistory: data });
   }
 
   const scrapeDonationPages = async () => {
-    fetch('http://localhost:5000/api/scrape', { method: 'POST' });
+    fetch(`${BASE_URL}/api/scrape`, { method: 'POST' });
   }
 
   useEffect(() => {
-    fetchDonationData()
+    fetchDonationData();
   }, [])
 
-  return { donationData, fetchDonationData, scrapeDonationPages }
+  return { donationData, fetchDonationData, scrapeDonationPages };
 }
 
 export default function Page({ children }) {
-  const hookInfo = useDonationData()
+  const hookInfo = useDonationData();
 
   return (
     <DonationDataProvider value={hookInfo}>
