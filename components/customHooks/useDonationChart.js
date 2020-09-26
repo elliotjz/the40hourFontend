@@ -4,7 +4,7 @@ import { distanceInWordsStrict } from "date-fns";
 import { colors, chartDomains, comparePlayerScores } from "../../helpers";
 
 export const useDonationChart = (props) => {
-  const { donationData, names } = props;
+  const { donationHistory } = props;
   const [chartDomainIndex, setChartDomainIndex] = useState(2);
   const [excludedPeople, setExcludedPeople] = useState([]);
   const [donorAmounts, setDonorAmounts] = useState([]);
@@ -20,19 +20,18 @@ export const useDonationChart = (props) => {
    * Update donor amounts array
    */
   useEffect(() => {
-    const donorAmounts = names.map(name => {
-      let person;
-      let i = donationData.length - 1;
-      while (!person && i > 0) {
-        person = donationData[i].people.find(el => el.name === name);
-        i--;
-      }
-      return [name, person.amount, person.target];
+    if (!donationHistory || !donationHistory.length) {
+      return;
+    }
+
+    const latestDonationData = donationHistory[donationHistory.length - 1].donationData;
+    const donorAmounts = latestDonationData.map(person => {
+      return [person.name, person.amount, person.target];
     });
     const sorted = donorAmounts.sort(comparePlayerScores);
     setDonorAmounts(sorted);
     setExcludedPeople(sorted.slice(10).map(player => player[0]))
-  }, [donationData, names]);
+  }, [donationHistory]);
 
   const onChipClick = useCallback((name) => {
     // If excluded people has been set in state, use that
@@ -61,21 +60,19 @@ export const useDonationChart = (props) => {
     const parsedColors = colors.slice();
     const colorsToRemove = [];
 
-    if (donationData && donationData.length !== 0) {
+    if (donationHistory && donationHistory.length !== 0) {
       const parsedData = [["Date"]];
 
       // Add the names of the people
-      const people = [];
-      donorAmounts.forEach((donor, i) => {
-        const name = donor[0];
+      const people = donorAmounts.filter((person, i) => {
         // exclude excluded players
-        if (!excludedPeople.includes(name)) {
-          // Append Name
-          people.push(donor[0]);
-        } else {
+        const isExcluded = excludedPeople.includes(person[0]);
+        if (isExcluded) {
           colorsToRemove.push(i);
         }
-      });
+
+        return !isExcluded;
+      }).map(person => person[0]);
       parsedData[0].push(...people);
 
       // Get the interval for the chart
@@ -96,17 +93,18 @@ export const useDonationChart = (props) => {
           distanceInWordsStrict(new Date(timestamp), currentTime) + " ago";
 
         // Find a scrape for this timestamp
-        scrape = donationData[scrapeIterator];
+        scrape = donationHistory[scrapeIterator];
         while (
           scrape.date < timestamp &&
-          scrapeIterator < donationData.length - 1
+          scrapeIterator < donationHistory.length - 1
         ) {
           scrapeIterator += 1;
           prevScrape = scrape;
-          scrape = donationData[scrapeIterator];
+          scrape = donationHistory[scrapeIterator];
         }
-        if (scrape.date > timestamp + interval) {
-          // Scrape is too new
+
+        const isScrapeTooRecent = scrape.date > timestamp + interval;
+        if (isScrapeTooRecent) {
           if (parsedData.length === 1) {
             // No data added yet
             if (!prevScrape) {
@@ -115,7 +113,7 @@ export const useDonationChart = (props) => {
             } else {
               // Use the previous scrape as a starting point
               const amounts = people.map((name, i) => {
-                const person = prevScrape.people.find(el => el.name === name);
+                const person = prevScrape.donationData.find(el => el.name === name);
                 if (person) return person.amount;
                 const lastValue = parsedData[parsedData.length - 1][i + 1];
                 return typeof lastValue === "string" ? undefined : lastValue;
@@ -131,7 +129,7 @@ export const useDonationChart = (props) => {
         } else {
           // Get each person's amount from scrape
           const amounts = people.map((name, i) => {
-            const person = scrape.people.find(el => el.name === name);
+            const person = scrape.donationData.find(el => el.name === name);
             if (person) return person.amount;
 
             // Person not found in scrape
@@ -161,7 +159,7 @@ export const useDonationChart = (props) => {
         colors: parsedColors
       });
     }
-  }, [chartDomainIndex, donationData, donorAmounts, excludedPeople]);
+  }, [chartDomainIndex, donationHistory, donorAmounts, excludedPeople]);
 
   const amount = donorAmounts.reduce((acc, donor) => acc + donor[1], 0);
   const target = donorAmounts.reduce((acc, donor) => acc + donor[2], 0);

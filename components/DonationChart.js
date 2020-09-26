@@ -127,7 +127,7 @@ const DonationChart = withStyles(styles)((props) => {
 });
 
 DonationChart.propTypes = {
-  donationData: PropTypes.array.isRequired,
+  donationHistory: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired
 };
 

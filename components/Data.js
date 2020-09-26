@@ -30,14 +30,18 @@ const styles = theme => ({
 })
 
 const Data = ({ classes }) => {
-  const { donationData, fetchDonationData, scrapeDonationPages } = useContext(DonationDataContext)
-  const { donations, names, loading } = donationData
+  const {
+    donationData,
+    fetchDonationData,
+    scrapeDonationPages
+  } = useContext(DonationDataContext)
+  const { donationHistory, loading } = donationData;
 
   return (
     <div className={classes.container}>
 
-      {donations ?
-        <DonationChart donationData={donations} names={names} /> :
+      {donationHistory ?
+        <DonationChart donationHistory={donationHistory} /> :
         <p>Loading...</p>
       }
       <Button
