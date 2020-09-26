@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Button, Typography } from '@material-ui/core'
 import Link from '@material-ui/core/Link';
 
-import { ScrapeContext } from './ScrapeContext'
+import { DonationDataContext } from './DonationDataContext'
 import DonationChart from './DonationChart';
 
 const styles = theme => ({
@@ -30,24 +30,21 @@ const styles = theme => ({
 })
 
 const Data = ({ classes }) => {
-  const { data, fetchScrapes } = useContext(ScrapeContext)
-  const { scrapes, loading } = data
-
-  const donationData = scrapes ? scrapes.donations : null
-  const names = scrapes ? scrapes.names : null
+  const { donationData, fetchDonationData, scrapeDonationPages } = useContext(DonationDataContext)
+  const { donations, names, loading } = donationData
 
   return (
     <div className={classes.container}>
 
-      {donationData ?
-        <DonationChart donationData={donationData} names={names} /> :
+      {donations ?
+        <DonationChart donationData={donations} names={names} /> :
         <p>Loading...</p>
       }
       <Button
         color="primary"
         size="small"
         variant='contained'
-        onClick={fetchScrapes}
+        onClick={fetchDonationData}
         disabled={loading}
         className={classes.button}
       >

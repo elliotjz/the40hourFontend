@@ -1,35 +1,37 @@
 import { useEffect, useState } from 'react'
-import { ScrapeProvider } from './ScrapeContext'
+import { DonationDataProvider } from './DonationDataContext'
 
-// Custom Hook
-function useScrapes() {
-  // Initial State inside hook
-  const [data, setScrapes] = useState({})
+function useDonationData() {
+  const [donationData, setDonationData] = useState({})
 
-  // Fetch Function
-  async function fetchScrapes() {
-    setScrapes({ ...data, loading: true })
-    console.log("fetching...");
-    const url = 'https://the40hourbackend.herokuapp.com/api/data' || 'http://localhost:5000/api/data'
-    console.log(`api URL: ${url}`);
+  async function fetchDonationData() {
+    setDonationData({
+      ...donationData,
+      loading: true
+    })
+    const url = 'http://localhost:5000/api/data'; // 'https://the40hourbackend.herokuapp.com/api/data' || 
     const res = await fetch(url)
-    const scrapes = await res.json()
-    console.log("done");
-    setScrapes({ loading: false, scrapes })
+    const data = await res.json()
+    setDonationData({ loading: false, ...data })
   }
 
-  // Did Mount / did Update
+  const scrapeDonationPages = async () => {
+    fetch('http://localhost:5000/api/scrape')
+  }
+
   useEffect(() => {
-    fetchScrapes()
+    fetchDonationData()
   }, [])
-  return { data, fetchScrapes }
+
+  return { donationData, fetchDonationData }
 }
 
 export default function Page({ children }) {
-  const hookInfo = useScrapes()
+  const hookInfo = useDonationData()
+
   return (
-    <ScrapeProvider value={hookInfo}>
+    <DonationDataProvider value={hookInfo}>
       <div className="page">{children}</div>
-    </ScrapeProvider>
+    </DonationDataProvider>
   )
 }
