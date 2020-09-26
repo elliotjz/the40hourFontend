@@ -1,3 +1,6 @@
+/*
+CONSTANTS
+*/
 export const colors = [
   '#3366CC',
   '#DC3912',
@@ -39,7 +42,19 @@ export const colors = [
   '#8B0707',
   '#329262',
   '#3B3EAC',
-]
+];
+
+// 6 hours, 3 hours, 1 hours, 15 minutes, 1 minute
+export const chartDomains = [
+  { text: "2 Weeks", samplesInDomain: 56, interval: 1000 * 60 * 60 * 6 },
+  { text: "1 week", samplesInDomain: 56, interval: 1000 * 60 * 60 * 3 },
+  { text: "3 days", samplesInDomain: 72, interval: 1000 * 60 * 60 },
+  { text: "1 day", samplesInDomain: 96, interval: 1000 * 60 * 15 },
+  { text: "1 hour", samplesInDomain: 60, interval: 1000 * 60 * 1 }
+];
+
+/*
+FUNCTIONS
+*/
 
 export const comparePlayerScores = (a, b) => b[1] - a[1]
-
