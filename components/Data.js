@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import { DonationDataContext } from './DonationDataContext'
+import { DonationDataContext } from '../contexts/DonationDataContext'
 import DonationChart from './DonationChart';
 
 const Data = () => {

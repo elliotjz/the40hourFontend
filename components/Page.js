@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { DonationDataProvider } from './DonationDataContext'
+import { DonationDataProvider } from '../contexts/DonationDataContext'
 
 const BASE_URL = 'https://the40hourbackend.herokuapp.com' || 'http://localhost:5000';
 

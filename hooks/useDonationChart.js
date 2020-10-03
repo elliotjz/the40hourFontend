@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { distanceInWordsStrict } from "date-fns";
 
-import { colors, chartDomains, comparePlayerScores } from "../../helpers";
+import { colors, chartDomains, comparePlayerScores } from "../helpers";
 
 export const useDonationChart = (props) => {
   const { donationHistory } = props;

@@ -5,12 +5,11 @@ import { Line } from "rc-progress";
 
 import { colors, chartDomains } from "../helpers";
 import Chips from "./Chips";
-import { useDonationChart } from "./customHooks/useDonationChart";
+import { useDonationChart } from "../hooks/useDonationChart";
 
 const DonationChart = (props) => {
   const {
     changeDomain,
-    chartDomainIndex,
     chartOptions,
     donorAmounts,
     excludedPeople,
@@ -23,9 +22,9 @@ const DonationChart = (props) => {
 
   return (
     <div className="donation-chart">
-      <p>
+      <h1>
         The 40 Hour Jammin' Donation Tally
-      </p>
+      </h1>
       <p>
         Total Donated: ${totalAmount} 💰 Target: ${totalTarget}
       </p>
