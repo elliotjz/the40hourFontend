@@ -5,7 +5,7 @@ const BASE_URL =
 
 export const AppContext = React.createContext();
 
-export const useAppData = () => {
+const useAppData = () => {
   const [donationData, setDonationData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 

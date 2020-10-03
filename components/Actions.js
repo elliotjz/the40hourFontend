@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 
-import { useAppData } from "../contexts/AppContext";
+import { AppContext } from "../contexts/AppContext";
 
 const Actions = () => {
-  const {
-    fetchDonationData,
-    isLoading,
-    scrapeDonationPages,
-  } = useAppData();
+  const { fetchDonationData, isLoading, scrapeDonationPages } = useContext(
+    AppContext
+  );
 
   return (
     <div className="actions">
