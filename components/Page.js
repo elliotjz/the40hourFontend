@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { DonationDataContext } from "../contexts/DonationDataContext";
 import DonationChart from "./DonationChart";
 
-const Data = () => {
+const Page = () => {
   const { donationData, fetchDonationData, scrapeDonationPages } = useContext(
     DonationDataContext
   );
@@ -44,4 +44,4 @@ const Data = () => {
   );
 };
 
-export default Data;
+export default Page;
