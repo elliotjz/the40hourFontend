@@ -30,7 +30,9 @@ const Page = () => {
         isLoading={isLoading}
       />
       {isLoading ? (
-        <LoadingIndicator />
+        <div className="chart-spinner-container">
+          <LoadingIndicator />
+        </div>
       ) : (
         <>
           <DonationChart

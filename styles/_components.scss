@@ -1,3 +1,19 @@
+@keyframes simple-rotate {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.spinner {
+  animation: simple-rotate 1s infinite linear;
+  width: 40px;
+  height: 40px;
+  border: 6px solid transparent;
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  margin: auto;
+}
+
 .page {
   --gutter: 0.5em;
   max-width: calc(1200px + 2 * var(--gutter));
@@ -6,6 +22,14 @@
 
   @media screen and (min-width: $breakpoint-mobile) {
     --gutter: 1em;
+  }
+
+  .chart-spinner-container {
+    height: var(--chart-height);
+    background: var(--color-light-grey);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 

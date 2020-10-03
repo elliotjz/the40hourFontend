@@ -29,10 +29,14 @@ const DonationChart = (props) => {
             <Chart
               chartType="LineChart"
               width="100%"
-              height="600px"
+              height="var(--chart-height)"
               data={parsedDonations}
               options={chartOptions}
-              loader={<LoadingIndicator />}
+              loader={
+                <div className="chart-spinner-container">
+                  <LoadingIndicator />
+                </div>
+              }
             />
           </div>
         )}

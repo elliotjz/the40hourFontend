@@ -1,7 +1,7 @@
 import React from "react";
 
 const LoadingIndicator = () => {
-  return <div>Loading...</div>;
+  return <div className="spinner"></div>;
 };
 
 export default LoadingIndicator;
