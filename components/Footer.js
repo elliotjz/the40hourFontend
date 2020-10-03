@@ -5,10 +5,10 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-inner-container">
         <p className="large-text">
-          <a href="https://www.the40hourjammin.com">The 40 hour jammin</a> is
-          being held from May 17 until 19 on Magnetic Island, Queensland. To
-          support the cause and move your favorite musician up the leaderboard,{" "}
-          <a href="https://www.the40hourjammin.com/artists">donate</a>.
+          The 40 hour jammin is being held from the 14th to 15th of November
+          2020 in Kin Kin, Noosa Hinterland, New South Wales. To support the
+          cause and move your favorite musician up the leaderboard, visit{" "}
+          <a href="https://40hourjammin.com/">https://40hourjammin.com/</a>.
         </p>
         <p>
           The leaderboard gets the donation amounts from the facebook donation
@@ -16,8 +16,7 @@ const Footer = () => {
           hour jammin starts.
         </p>
         <p>
-          This project is open source and was made by Elliot Zoerner. Find the
-          source code{" "}
+          Website built by Elliot Zoerner - find the source code{" "}
           <a href="https://github.com/elliotjz/the40hourFontend">here</a>.
         </p>
       </div>
