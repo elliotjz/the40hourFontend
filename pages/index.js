@@ -1,5 +1,5 @@
-import Page from '../components/Page'
-import Data from '../components/Data'
+import Page from '../components/Page';
+import Data from '../components/Data';
 
 export default function Home() {
   return (
@@ -7,4 +7,4 @@ export default function Home() {
       <Data />
     </Page>
   )
-}
+};

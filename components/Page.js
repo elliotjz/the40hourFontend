@@ -6,7 +6,7 @@ const BASE_URL = 'https://the40hourbackend.herokuapp.com' || 'http://localhost:5
 function useDonationData() {
   const [donationData, setDonationData] = useState({})
 
-  async function fetchDonationData() {
+  const fetchDonationData = async () => {
     setDonationData({
       ...donationData,
       loading: true
