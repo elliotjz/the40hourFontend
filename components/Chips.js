@@ -21,13 +21,12 @@ const Chips = (props) => {
             type="button"
             onClick={() => onClick(player[0])}
             key={index}
-            className="chips__player-button"
+            className="chip"
             style={{
-              outlineColor: color,
-              border: `solid 3px ${color}`,
+              borderColor: color,
             }}
           >
-            <span className="chips__player-button-text">
+            <span className="chip-text">
               {truncatedName} <b>${score}</b>
             </span>
           </button>

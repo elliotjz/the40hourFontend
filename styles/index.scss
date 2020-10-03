@@ -1,0 +1,61 @@
+$breakpoint-mobile: 550px;
+
+body {
+  font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans",
+    "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+  margin: 0;
+}
+
+.page {
+  --gutter: 0.5em;
+  max-width: calc(1200px + 2 * var(--gutter));
+  margin: auto;
+  padding: 0 var(--gutter);
+
+  @media screen and (min-width: $breakpoint-mobile) {
+    --gutter: 1em;
+  }
+}
+
+.header {
+  --progress-bar-color: #4daa5c;
+  --progress-bar-secondary-color: #d7d7d7;
+  text-align: center;
+  padding: 1em 0;
+
+  .heading {
+    font-weight: 400;
+    font-size: 2.2rem;
+  }
+
+  .totals {
+    font-size: 1.3rem;
+  }
+
+  .progress-text {
+    font-size: 1.1rem;
+    margin-bottom: 0.5em;
+  }
+
+  .progress-bar-wrapper {
+    max-width: 600px;
+    margin: auto;
+  }
+}
+
+.chips {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+
+  @media screen and (min-width: $breakpoint-mobile) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .chip {
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    border-width: 2px;
+    border-style: solid;
+  }
+}

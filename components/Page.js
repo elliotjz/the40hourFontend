@@ -18,7 +18,7 @@ const Page = () => {
   } = usePage();
 
   return (
-    <div className="donation-data">
+    <div className="page">
       <Header
         totalAmount={totalAmount}
         totalTarget={totalTarget}
