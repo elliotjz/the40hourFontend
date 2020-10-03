@@ -5,10 +5,7 @@ import { DonationDataContext } from "../contexts/DonationDataContext";
 import { colors, chartDomains, comparePlayerScores } from "../helpers";
 
 export const usePage = (props) => {
-  const { donationData, fetchDonationData, scrapeDonationPages } = useContext(
-    DonationDataContext
-  );
-  const { donationHistory, loading } = donationData;
+  const { donationData, isLoading } = useContext(DonationDataContext);
 
   const [chartDomainIndex, setChartDomainIndex] = useState(2);
   const [excludedPeople, setExcludedPeople] = useState([]);
@@ -25,19 +22,19 @@ export const usePage = (props) => {
    * Update donor amounts array
    */
   useEffect(() => {
-    if (!donationHistory || !donationHistory.length) {
+    if (!donationData || !donationData.length) {
       return;
     }
 
     const latestDonationData =
-      donationHistory[donationHistory.length - 1].donationData;
+      donationData[donationData.length - 1].donationData;
     const donorAmounts = latestDonationData.map((person) => {
       return [person.name, person.amount, person.target];
     });
     const sorted = donorAmounts.sort(comparePlayerScores);
     setDonorAmounts(sorted);
     setExcludedPeople(sorted.slice(10).map((player) => player[0]));
-  }, [donationHistory]);
+  }, [donationData]);
 
   const onChipClick = useCallback((name) => {
     // If excluded people has been set in state, use that
@@ -66,7 +63,7 @@ export const usePage = (props) => {
     const parsedColors = colors.slice();
     const colorsToRemove = [];
 
-    if (!donationHistory || donationHistory.length === 0) {
+    if (!donationData || donationData.length === 0) {
       return;
     }
 
@@ -104,14 +101,14 @@ export const usePage = (props) => {
         distanceInWordsStrict(new Date(timestamp), currentTime) + " ago";
 
       // Find a scrape for this timestamp
-      scrape = donationHistory[scrapeIterator];
+      scrape = donationData[scrapeIterator];
       while (
         scrape.date < timestamp &&
-        scrapeIterator < donationHistory.length - 1
+        scrapeIterator < donationData.length - 1
       ) {
         scrapeIterator += 1;
         prevScrape = { ...scrape };
-        scrape = { ...donationHistory[scrapeIterator] };
+        scrape = { ...donationData[scrapeIterator] };
       }
 
       const isScrapeTooRecent = scrape.date > timestamp + interval;
@@ -172,7 +169,7 @@ export const usePage = (props) => {
       ...chartOptions,
       colors: parsedColors,
     });
-  }, [chartDomainIndex, donationHistory, donorAmounts, excludedPeople]);
+  }, [chartDomainIndex, donationData, donorAmounts, excludedPeople]);
 
   const amount = donorAmounts.reduce((acc, donor) => acc + donor[1], 0);
   const target = donorAmounts.reduce((acc, donor) => acc + donor[2], 0);

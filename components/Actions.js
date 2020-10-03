@@ -5,20 +5,23 @@ import { useDonationData } from "../contexts/DonationDataContext";
 const Actions = () => {
   const {
     fetchDonationData,
+    isLoading,
     scrapeDonationPages,
-    donationData,
   } = useDonationData();
-  const { loading } = donationData;
 
   return (
     <div className="actions">
-      <button className="action" onClick={fetchDonationData} disabled={loading}>
-        {loading ? "Refreshing Data..." : "Refresh Data"}
+      <button
+        className="action"
+        onClick={fetchDonationData}
+        disabled={isLoading}
+      >
+        {isLoading ? "Refreshing Data..." : "Refresh Data"}
       </button>
       <button
         className="action"
         onClick={scrapeDonationPages}
-        disabled={loading}
+        disabled={isLoading}
       >
         Scrape
       </button>

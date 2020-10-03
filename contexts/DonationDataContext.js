@@ -6,17 +6,16 @@ const BASE_URL =
 export const DonationDataContext = React.createContext();
 
 export const useDonationData = () => {
-  const [donationData, setDonationData] = useState({});
+  const [donationData, setDonationData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchDonationData = async () => {
-    setDonationData({
-      ...donationData,
-      loading: true,
-    });
+    setIsLoading(true);
 
     const res = await fetch(`${BASE_URL}/api/data`);
     const data = await res.json();
-    setDonationData({ loading: false, donationHistory: data });
+    setDonationData(data);
+    setIsLoading(false);
   };
 
   const scrapeDonationPages = async () => {
@@ -27,7 +26,7 @@ export const useDonationData = () => {
     fetchDonationData();
   }, []);
 
-  return { donationData, fetchDonationData, scrapeDonationPages };
+  return { donationData, isLoading, fetchDonationData, scrapeDonationPages };
 };
 
 export const DonationDataProvider = ({ children }) => {
