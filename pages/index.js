@@ -1,10 +1,10 @@
-import Page from '../components/Page';
+import DonationDataContext from '../contexts/DonationDataContext';
 import Data from '../components/Data';
 
 export default function Home() {
   return (
-    <Page>
+    <DonationDataContext>
       <Data />
-    </Page>
+    </DonationDataContext>
   )
 };
