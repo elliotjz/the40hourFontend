@@ -16,7 +16,7 @@ const Footer = () => {
           hour jammin starts.
         </p>
         <p>
-          Website built by Elliot Zoerner - find the source code{" "}
+          This website was built by Elliot Zoerner - find the source code{" "}
           <a href="https://github.com/elliotjz/the40hourFontend">here</a>.
         </p>
       </div>
