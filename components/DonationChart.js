@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Chart } from "react-google-charts";
-import { Line } from "rc-progress";
 
 import { colors, chartDomains } from "../helpers";
 import Chips from "./Chips";
-import { useDonationChart } from "../hooks/useDonationChart";
 
 const DonationChart = (props) => {
   const {
@@ -15,27 +13,10 @@ const DonationChart = (props) => {
     excludedPeople,
     onChipClick,
     parsedDonations,
-    percentageOfTarget,
-    totalAmount,
-    totalTarget,
-  } = useDonationChart(props);
+  } = props;
 
   return (
     <div className="donation-chart">
-      <h1>The 40 Hour Jammin' Donation Tally</h1>
-      <p>
-        Total Donated: ${totalAmount} 💰 Target: ${totalTarget}
-      </p>
-      <div className="progress-wrapper">
-        <p>Progress {percentageOfTarget.toString().substr(0, 4)}%</p>
-        <Line
-          percent={percentageOfTarget}
-          strokeWidth="2"
-          strokeColor="#3f51b5"
-          trailColor="#a1aae0"
-        />
-      </div>
-      <p>Thanks to everyone who has donated so far, big or small. ❤️</p>
       {parsedDonations && parsedDonations.length > 1 ? (
         <div className="chips-wrapper">
           <Chips

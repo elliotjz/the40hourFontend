@@ -1,21 +1,42 @@
-import { useContext } from "react";
-
-import { DonationDataContext } from "../contexts/DonationDataContext";
+import { usePage } from "../hooks/usePage";
+import Header from "./Header";
 import DonationChart from "./DonationChart";
+import { useDonationData } from "../contexts/DonationDataContext";
 
 const Page = () => {
-  const { donationData, fetchDonationData, scrapeDonationPages } = useContext(
-    DonationDataContext
-  );
-  const { donationHistory, loading } = donationData;
+  const {
+    fetchDonationData,
+    scrapeDonationPages,
+    donationData,
+  } = useDonationData();
+  const { loading } = donationData;
+  const {
+    changeDomain,
+    chartOptions,
+    donorAmounts,
+    excludedPeople,
+    onChipClick,
+    parsedDonations,
+    percentageOfTarget,
+    totalAmount,
+    totalTarget,
+  } = usePage();
 
   return (
     <div className="donation-data">
-      {donationHistory ? (
-        <DonationChart donationHistory={donationHistory} />
-      ) : (
-        <p>Loading...</p>
-      )}
+      <Header
+        totalAmount={totalAmount}
+        totalTarget={totalTarget}
+        percentageOfTarget={percentageOfTarget}
+      />
+      <DonationChart
+        changeDomain={changeDomain}
+        chartOptions={chartOptions}
+        donorAmounts={donorAmounts}
+        excludedPeople={excludedPeople}
+        onChipClick={onChipClick}
+        parsedDonations={parsedDonations}
+      />
       <button onClick={fetchDonationData} disabled={loading}>
         {loading ? "Refreshing Data..." : "Refresh Data"}
       </button>

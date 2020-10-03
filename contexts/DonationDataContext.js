@@ -5,7 +5,7 @@ const BASE_URL =
 
 export const DonationDataContext = React.createContext();
 
-const useDonationData = () => {
+export const useDonationData = () => {
   const [donationData, setDonationData] = useState({});
 
   const fetchDonationData = async () => {
