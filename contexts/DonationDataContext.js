@@ -30,7 +30,7 @@ const useDonationData = () => {
   return { donationData, fetchDonationData, scrapeDonationPages };
 };
 
-export default ({ children }) => {
+export const DonationDataProvider = ({ children }) => {
   const hookInfo = useDonationData();
 
   return (
