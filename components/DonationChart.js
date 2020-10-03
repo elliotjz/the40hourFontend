@@ -2,12 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Chart } from "react-google-charts";
 
-import { colors, chartDomains } from "../helpers";
+import { colors } from "../helpers";
 import Chips from "./Chips";
 
 const DonationChart = (props) => {
   const {
-    changeDomain,
     chartOptions,
     donorAmounts,
     excludedPeople,
@@ -37,13 +36,6 @@ const DonationChart = (props) => {
               />
             </div>
           )}
-          <div className="domain-control">
-            {chartDomains.map((domain, index) => (
-              <button key={index} onClick={() => changeDomain(index)}>
-                {domain.text}
-              </button>
-            ))}
-          </div>
         </div>
       ) : (
         <div>

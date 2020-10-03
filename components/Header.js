@@ -15,13 +15,13 @@ const Header = (props) => {
           {percentageOfTarget.toString().substr(0, 4)}% of target reached
         </p>
         <div className="progress-bar-wrapper">
-        <Line
-          percent={percentageOfTarget}
-          strokeWidth="1.5"
-          trailWidth="1.5"
-          strokeColor="var(--progress-bar-color)"
-          trailColor="var(--progress-bar-secondary-color)"
-        />
+          <Line
+            percent={percentageOfTarget}
+            strokeWidth="1.5"
+            trailWidth="1.5"
+            strokeColor="var(--progress-bar-color)"
+            trailColor="var(--progress-bar-secondary-color)"
+          />
         </div>
       </div>
       <p>Thanks to everyone who has donated so far, big or small. ❤️</p>

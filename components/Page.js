@@ -3,6 +3,7 @@ import Actions from "./Actions";
 import Header from "./Header";
 import Footer from "./Footer";
 import DonationChart from "./DonationChart";
+import DomainControl from "./DomainControl";
 
 const Page = () => {
   const {
@@ -32,6 +33,7 @@ const Page = () => {
         onChipClick={onChipClick}
         parsedDonations={parsedDonations}
       />
+      <DomainControl changeDomain={changeDomain} />
       <Actions />
       <Footer />
     </div>
