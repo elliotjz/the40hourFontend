@@ -9,7 +9,7 @@
     "start": "next start -p $PORT",
     "heroku-postbuild": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --write \"**/*.js\""
+    "format": "prettier --write \"{components,contexts,helpers,hooks,pages}/*.js\""
   },
   "author": "",
   "license": "ISC",
