@@ -12,10 +12,14 @@ const Actions = () => {
 
   return (
     <div className="actions">
-      <button onClick={fetchDonationData} disabled={loading}>
+      <button className="action" onClick={fetchDonationData} disabled={loading}>
         {loading ? "Refreshing Data..." : "Refresh Data"}
       </button>
-      <button onClick={scrapeDonationPages} disabled={loading}>
+      <button
+        className="action"
+        onClick={scrapeDonationPages}
+        disabled={loading}
+      >
         Scrape
       </button>
     </div>

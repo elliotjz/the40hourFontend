@@ -1,0 +1,28 @@
+@mixin button-small-primary {
+  text-transform: uppercase;
+  background: var(--color-primary);
+  color: var(--color-white);
+  margin: 0 0.1em;
+  padding: 0.3em 1em;
+  border: 1px solid var(--color-primary);
+  border-radius: 4px;
+  box-shadow: 0 0 5px var(--color-dark-grey-transparent);
+
+  &:hover {
+    transform: translate3d(0, -0.5px, 0);
+  }
+
+  &:active {
+    transform: translate3d(0, 0, 0);
+  }
+
+  &:disabled {
+    background: var(--color-grey);
+  }
+}
+
+@mixin button-small-secondary {
+  @include button-small-primary;
+  background: transparent;
+  color: var(--color-black);
+}

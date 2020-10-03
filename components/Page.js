@@ -8,6 +8,7 @@ import DomainControl from "./DomainControl";
 const Page = () => {
   const {
     changeDomain,
+    chartDomainIndex,
     chartOptions,
     donorAmounts,
     excludedPeople,
@@ -26,14 +27,16 @@ const Page = () => {
         percentageOfTarget={percentageOfTarget}
       />
       <DonationChart
-        changeDomain={changeDomain}
         chartOptions={chartOptions}
         donorAmounts={donorAmounts}
         excludedPeople={excludedPeople}
         onChipClick={onChipClick}
         parsedDonations={parsedDonations}
       />
-      <DomainControl changeDomain={changeDomain} />
+      <DomainControl
+        changeDomain={changeDomain}
+        chartDomainIndex={chartDomainIndex}
+      />
       <Actions />
       <Footer />
     </div>
