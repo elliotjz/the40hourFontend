@@ -4,6 +4,7 @@ import { Chart } from "react-google-charts";
 
 import { colors } from "../helpers";
 import Chips from "./Chips";
+import LoadingIndicator from "./LoadingIndicator";
 
 const DonationChart = (props) => {
   const {
@@ -16,32 +17,26 @@ const DonationChart = (props) => {
 
   return (
     <div className="donation-chart">
-      {parsedDonations && parsedDonations.length > 1 ? (
-        <div className="chips-wrapper">
-          <Chips
-            donorAmounts={donorAmounts}
-            colors={colors}
-            onClick={onChipClick}
-            excludedPeople={excludedPeople}
-          />
-          {parsedDonations[0].length > 1 && (
-            <div>
-              <Chart
-                chartType="LineChart"
-                width="100%"
-                height="600px"
-                data={parsedDonations}
-                options={chartOptions}
-                loader={<div className="loading-container">Loading...</div>}
-              />
-            </div>
-          )}
-        </div>
-      ) : (
-        <div>
-          <p>Add a race result to see the tournament statistics.</p>
-        </div>
-      )}
+      <div className="chips-wrapper">
+        <Chips
+          donorAmounts={donorAmounts}
+          colors={colors}
+          onClick={onChipClick}
+          excludedPeople={excludedPeople}
+        />
+        {parsedDonations[0].length > 1 && (
+          <div>
+            <Chart
+              chartType="LineChart"
+              width="100%"
+              height="600px"
+              data={parsedDonations}
+              options={chartOptions}
+              loader={<LoadingIndicator />}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

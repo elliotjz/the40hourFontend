@@ -185,6 +185,7 @@ export const usePage = (props) => {
     chartOptions,
     donorAmounts,
     excludedPeople,
+    isLoading,
     onChipClick,
     parsedDonations,
     percentageOfTarget,

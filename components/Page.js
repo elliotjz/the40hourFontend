@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import DonationChart from "./DonationChart";
 import DomainControl from "./DomainControl";
+import LoadingIndicator from "./LoadingIndicator";
 
 const Page = () => {
   const {
@@ -12,6 +13,7 @@ const Page = () => {
     chartOptions,
     donorAmounts,
     excludedPeople,
+    isLoading,
     onChipClick,
     parsedDonations,
     percentageOfTarget,
@@ -25,18 +27,25 @@ const Page = () => {
         totalAmount={totalAmount}
         totalTarget={totalTarget}
         percentageOfTarget={percentageOfTarget}
+        isLoading={isLoading}
       />
-      <DonationChart
-        chartOptions={chartOptions}
-        donorAmounts={donorAmounts}
-        excludedPeople={excludedPeople}
-        onChipClick={onChipClick}
-        parsedDonations={parsedDonations}
-      />
-      <DomainControl
-        changeDomain={changeDomain}
-        chartDomainIndex={chartDomainIndex}
-      />
+      {isLoading ? (
+        <LoadingIndicator />
+      ) : (
+        <>
+          <DonationChart
+            chartOptions={chartOptions}
+            donorAmounts={donorAmounts}
+            excludedPeople={excludedPeople}
+            onChipClick={onChipClick}
+            parsedDonations={parsedDonations}
+          />
+          <DomainControl
+            changeDomain={changeDomain}
+            chartDomainIndex={chartDomainIndex}
+          />
+        </>
+      )}
       <Actions />
       <Footer />
     </div>
