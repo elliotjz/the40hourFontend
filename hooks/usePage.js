@@ -1,11 +1,11 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { distanceInWordsStrict } from "date-fns";
 
-import { DonationDataContext } from "../contexts/DonationDataContext";
+import { AppContext } from "../contexts/AppContext";
 import { colors, chartDomains, comparePlayerScores } from "../helpers";
 
 export const usePage = (props) => {
-  const { donationData, isLoading } = useContext(DonationDataContext);
+  const { donationData, isLoading } = useContext(AppContext);
 
   const [chartDomainIndex, setChartDomainIndex] = useState(2);
   const [excludedPeople, setExcludedPeople] = useState([]);

@@ -1,10 +1,10 @@
-import { DonationDataProvider } from "../contexts/DonationDataContext";
+import { AppContextProvider } from "../contexts/AppContext";
 import Page from "../components/Page";
 
 export default function Home() {
   return (
-    <DonationDataProvider>
+    <AppContextProvider>
       <Page />
-    </DonationDataProvider>
+    </AppContextProvider>
   );
 }

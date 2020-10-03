@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 const BASE_URL =
   "https://the40hourbackend.herokuapp.com" || "http://localhost:5000";
 
-export const DonationDataContext = React.createContext();
+export const AppContext = React.createContext();
 
-export const useDonationData = () => {
+export const useAppData = () => {
   const [donationData, setDonationData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -29,12 +29,12 @@ export const useDonationData = () => {
   return { donationData, isLoading, fetchDonationData, scrapeDonationPages };
 };
 
-export const DonationDataProvider = ({ children }) => {
-  const hookInfo = useDonationData();
+export const AppContextProvider = ({ children }) => {
+  const hookInfo = useAppData();
 
   return (
-    <DonationDataContext.Provider value={hookInfo}>
+    <AppContext.Provider value={hookInfo}>
       {children}
-    </DonationDataContext.Provider>
+    </AppContext.Provider>
   );
 };
