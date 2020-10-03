@@ -1,16 +1,10 @@
 import { usePage } from "../hooks/usePage";
+import Actions from "./Actions";
 import Header from "./Header";
 import Footer from "./Footer";
 import DonationChart from "./DonationChart";
-import { useDonationData } from "../contexts/DonationDataContext";
 
 const Page = () => {
-  const {
-    fetchDonationData,
-    scrapeDonationPages,
-    donationData,
-  } = useDonationData();
-  const { loading } = donationData;
   const {
     changeDomain,
     chartOptions,
@@ -38,12 +32,7 @@ const Page = () => {
         onChipClick={onChipClick}
         parsedDonations={parsedDonations}
       />
-      <button onClick={fetchDonationData} disabled={loading}>
-        {loading ? "Refreshing Data..." : "Refresh Data"}
-      </button>
-      <button onClick={scrapeDonationPages} disabled={loading}>
-        Scrape
-      </button>
+      <Actions />
       <Footer />
     </div>
   );
