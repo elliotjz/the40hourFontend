@@ -18,6 +18,7 @@
 
   &:disabled {
     background: var(--color-grey);
+    border-color: var(--color-grey);
   }
 }
 
