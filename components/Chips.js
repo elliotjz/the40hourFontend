@@ -1,25 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 
 const truncateName = (name, n) =>
-  name.length > n ? `${name.substr(0, n - 1)}...` : name
+  name.length > n ? `${name.substr(0, n - 1)}...` : name;
 
-const Chips = props => {
-  const {
-    donorAmounts,
-    colors,
-    onClick,
-    excludedPeople
-  } = props
+const Chips = (props) => {
+  const { donorAmounts, colors, onClick, excludedPeople } = props;
 
   return (
     <div className="chips">
       {donorAmounts.map((player, index) => {
         const color = excludedPeople.includes(player[0])
-          ? '#bbb'
-          : colors[index]
-        const [name, score] = player
-        const truncatedName = truncateName(name, 15)
+          ? "#bbb"
+          : colors[index];
+        const [name, score] = player;
+        const truncatedName = truncateName(name, 15);
 
         return (
           <button
@@ -36,17 +31,17 @@ const Chips = props => {
               {truncatedName} <b>${score}</b>
             </span>
           </button>
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
 Chips.propTypes = {
   donorAmounts: PropTypes.array.isRequired,
   colors: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
   excludedPeople: PropTypes.array.isRequired,
-}
+};
 
 export default Chips;

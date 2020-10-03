@@ -17,21 +17,17 @@ const DonationChart = (props) => {
     parsedDonations,
     percentageOfTarget,
     totalAmount,
-    totalTarget
+    totalTarget,
   } = useDonationChart(props);
 
   return (
     <div className="donation-chart">
-      <h1>
-        The 40 Hour Jammin' Donation Tally
-      </h1>
+      <h1>The 40 Hour Jammin' Donation Tally</h1>
       <p>
         Total Donated: ${totalAmount} 💰 Target: ${totalTarget}
       </p>
       <div className="progress-wrapper">
-        <p>
-          Progress {percentageOfTarget.toString().substr(0, 4)}%
-        </p>
+        <p>Progress {percentageOfTarget.toString().substr(0, 4)}%</p>
         <Line
           percent={percentageOfTarget}
           strokeWidth="2"
@@ -39,9 +35,7 @@ const DonationChart = (props) => {
           trailColor="#a1aae0"
         />
       </div>
-      <p>
-        Thanks to everyone who has donated so far, big or small. ❤️
-      </p>
+      <p>Thanks to everyone who has donated so far, big or small. ❤️</p>
       {parsedDonations && parsedDonations.length > 1 ? (
         <div className="chips-wrapper">
           <Chips
@@ -58,20 +52,13 @@ const DonationChart = (props) => {
                 height="600px"
                 data={parsedDonations}
                 options={chartOptions}
-                loader={
-                  <div className="loading-container">
-                    Loading...
-                  </div>
-                }
+                loader={<div className="loading-container">Loading...</div>}
               />
             </div>
           )}
           <div className="domain-control">
             {chartDomains.map((domain, index) => (
-              <button
-                key={index}
-                onClick={() => changeDomain(index)}
-              >
+              <button key={index} onClick={() => changeDomain(index)}>
                 {domain.text}
               </button>
             ))}
@@ -79,9 +66,7 @@ const DonationChart = (props) => {
         </div>
       ) : (
         <div>
-          <p>
-            Add a race result to see the tournament statistics.
-          </p>
+          <p>Add a race result to see the tournament statistics.</p>
         </div>
       )}
     </div>
