@@ -8,6 +8,7 @@ export const AppContext = React.createContext();
 const useAppData = () => {
   const [donationData, setDonationData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [chartDomainIndex, setChartDomainIndex] = useState(2);
 
   const fetchDonationData = async () => {
     setIsLoading(true);
@@ -22,19 +23,26 @@ const useAppData = () => {
     fetch(`${BASE_URL}/api/scrape`, { method: "POST" });
   };
 
+  const changeDomain = (index) => {
+    setChartDomainIndex(index);
+  };
+
   useEffect(() => {
     fetchDonationData();
   }, []);
 
-  return { donationData, isLoading, fetchDonationData, scrapeDonationPages };
+  return {
+    changeDomain,
+    chartDomainIndex,
+    donationData,
+    isLoading,
+    fetchDonationData,
+    scrapeDonationPages,
+  };
 };
 
 export const AppContextProvider = ({ children }) => {
   const hookInfo = useAppData();
 
-  return (
-    <AppContext.Provider value={hookInfo}>
-      {children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={hookInfo}>{children}</AppContext.Provider>;
 };

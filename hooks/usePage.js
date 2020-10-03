@@ -5,9 +5,8 @@ import { AppContext } from "../contexts/AppContext";
 import { colors, chartDomains, comparePlayerScores } from "../helpers";
 
 export const usePage = (props) => {
-  const { donationData, isLoading } = useContext(AppContext);
+  const { chartDomainIndex, donationData, isLoading } = useContext(AppContext);
 
-  const [chartDomainIndex, setChartDomainIndex] = useState(2);
   const [excludedPeople, setExcludedPeople] = useState([]);
   const [donorAmounts, setDonorAmounts] = useState([]);
   const [parsedDonations, setParsedDonations] = useState(null);
@@ -51,10 +50,6 @@ export const usePage = (props) => {
       return newExclPeople;
     });
   });
-
-  const changeDomain = (index) => {
-    setChartDomainIndex(index);
-  };
 
   /**
    * Set parsed donations whenever the relevant data changes
@@ -113,7 +108,6 @@ export const usePage = (props) => {
 
       const isScrapeTooRecent = scrape.date > timestamp + interval;
       if (isScrapeTooRecent) {
-        // console.log('scrape is too recent');
         const isStart = parsedData.length === 1;
         if (isStart) {
           if (!prevScrape) {
@@ -180,8 +174,6 @@ export const usePage = (props) => {
 
   return {
     ...props,
-    changeDomain,
-    chartDomainIndex,
     chartOptions,
     donorAmounts,
     excludedPeople,

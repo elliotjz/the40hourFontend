@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../contexts/AppContext";
 
 import { chartDomains } from "../helpers";
 
-const DomainControl = (props) => {
-  const { changeDomain, chartDomainIndex } = props;
+const DomainControl = () => {
+  const { changeDomain, chartDomainIndex } = useContext(AppContext);
 
   return (
     <div className="domain-control">

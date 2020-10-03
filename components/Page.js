@@ -8,8 +8,6 @@ import LoadingIndicator from "./LoadingIndicator";
 
 const Page = () => {
   const {
-    changeDomain,
-    chartDomainIndex,
     chartOptions,
     donorAmounts,
     excludedPeople,
@@ -42,10 +40,7 @@ const Page = () => {
             onChipClick={onChipClick}
             parsedDonations={parsedDonations}
           />
-          <DomainControl
-            changeDomain={changeDomain}
-            chartDomainIndex={chartDomainIndex}
-          />
+          <DomainControl />
         </>
       )}
       <Actions />
