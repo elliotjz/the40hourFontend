@@ -85,14 +85,27 @@
 .domain-control {
   display: flex;
   justify-content: center;
-  margin-bottom: 1em;
+  margin: 0.5em 0 1em;
 
   .domain-button {
+    --border-radius: 15px;
     @include button-small-secondary;
+    border-width: 1px 1px 1px 0;
+    border-radius: 0;
+
+    &:first-child {
+      border-radius: var(--border-radius) 0 0 var(--border-radius);
+      border-width: 1px;
+    }
+
+    &:last-child {
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    }
   }
 
   .domain-button--active {
     @include button-small-primary;
+    border-radius: 0;
   }
 }
 
@@ -102,6 +115,7 @@
 
   .action {
     @include button-small-primary;
+    margin: 0 0.2em;
   }
 }
 

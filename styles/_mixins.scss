@@ -2,18 +2,19 @@
   text-transform: uppercase;
   background: var(--color-primary);
   color: var(--color-white);
-  margin: 0 0.1em;
-  padding: 0.3em 1em;
+  padding: 0.5em 1.5em;
   border: 1px solid var(--color-primary);
-  border-radius: 4px;
   box-shadow: 0 0 5px var(--color-dark-grey-transparent);
+  border-radius: 15px;
+  transition: all 0.2s linear;
 
   &:hover {
-    transform: translate3d(0, -0.5px, 0);
+    background: var(--color-primary-dark);
   }
 
-  &:active {
-    transform: translate3d(0, 0, 0);
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px var(--color-primary);
   }
 
   &:disabled {
@@ -24,6 +25,10 @@
 
 @mixin button-small-secondary {
   @include button-small-primary;
-  background: transparent;
+  background: var(--color-white);
   color: var(--color-black);
+
+  &:hover {
+    background: var(--color-light-grey);
+  }
 }
