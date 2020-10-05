@@ -5,25 +5,15 @@ import Footer from "./Footer";
 import DonationChart from "./DonationChart";
 import DomainControl from "./DomainControl";
 import LoadingIndicator from "./LoadingIndicator";
+import { useContext } from "react";
+import { AppContext } from "../contexts/AppContext";
 
 const Page = () => {
-  const {
-    chartOptions,
-    isLoading,
-    parsedDonations,
-    percentageOfTarget,
-    totalAmount,
-    totalTarget,
-  } = usePage();
-
+  const { chartOptions, parsedDonations } = usePage();
+  const { isLoading } = useContext(AppContext);
   return (
     <div className="page">
-      <Header
-        totalAmount={totalAmount}
-        totalTarget={totalTarget}
-        percentageOfTarget={percentageOfTarget}
-        isLoading={isLoading}
-      />
+      <Header />
       {isLoading ? (
         <div className="chart-spinner-container">
           <LoadingIndicator />

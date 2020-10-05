@@ -4,13 +4,12 @@ import { distanceInWordsStrict } from "date-fns";
 import { AppContext } from "../contexts/AppContext";
 import { colors, chartDomains } from "../helpers";
 
-export const usePage = (props) => {
+export const usePage = () => {
   const {
     chartDomainIndex,
     donorAmounts,
     donationData,
     excludedPeople,
-    isLoading,
   } = useContext(AppContext);
   const [parsedDonations, setParsedDonations] = useState([]);
   const [chartOptions, setChartOptions] = useState({
@@ -134,20 +133,8 @@ export const usePage = (props) => {
     });
   }, [chartDomainIndex, donationData, donorAmounts, excludedPeople]);
 
-  const amount = donorAmounts.reduce((acc, donor) => acc + donor[1], 0);
-  const target = donorAmounts.reduce((acc, donor) => acc + donor[2], 0);
-  const totalAmount = new Intl.NumberFormat().format(amount);
-  const totalTarget = new Intl.NumberFormat().format(target);
-
-  const percentageOfTarget = (amount / target) * 100;
-
   return {
-    ...props,
     chartOptions,
-    isLoading,
     parsedDonations,
-    percentageOfTarget,
-    totalAmount,
-    totalTarget,
   };
 };

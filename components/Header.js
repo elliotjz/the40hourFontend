@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Line } from "rc-progress";
 
 import LoadingIndicator from "./LoadingIndicator";
+import { AppContext } from "../contexts/AppContext";
 
-const Header = (props) => {
-  const { isLoading, totalAmount, totalTarget, percentageOfTarget } = props;
+const Header = () => {
+  const { donorAmounts, isLoading } = useContext(AppContext);
+  const amount = donorAmounts.reduce((acc, donor) => acc + donor[1], 0);
+  const target = donorAmounts.reduce((acc, donor) => acc + donor[2], 0);
+  const totalAmount = new Intl.NumberFormat().format(amount);
+  const totalTarget = new Intl.NumberFormat().format(target);
+
+  const percentageOfTarget = (amount / target) * 100;
 
   return (
     <div className="header">
