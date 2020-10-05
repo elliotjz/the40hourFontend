@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
+
 import { AppContext } from "../contexts/AppContext";
+import { colors } from "../helpers";
 
 const truncateName = (name, n) =>
   name.length > n ? `${name.substr(0, n - 1)}...` : name;
 
-const Chips = (props) => {
-  const { colors } = props;
+const Chips = () => {
   const { donorAmounts, excludedPeople, onChipClick } = useContext(AppContext);
 
   return (
@@ -36,10 +37,6 @@ const Chips = (props) => {
       })}
     </div>
   );
-};
-
-Chips.propTypes = {
-  colors: PropTypes.array.isRequired,
 };
 
 export default Chips;

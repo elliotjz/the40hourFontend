@@ -4,7 +4,7 @@ import { distanceInWordsStrict } from "date-fns";
 import { AppContext } from "../contexts/AppContext";
 import { colors, chartDomains } from "../helpers";
 
-export const usePage = () => {
+export const useDonationChart = () => {
   const {
     chartDomainIndex,
     donorAmounts,

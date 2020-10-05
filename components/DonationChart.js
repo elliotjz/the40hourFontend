@@ -1,13 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Chart } from "react-google-charts";
 
-import { colors } from "../helpers";
 import Chips from "./Chips";
 import LoadingIndicator from "./LoadingIndicator";
+import { useDonationChart } from "../hooks/useDonationChart";
 
-const DonationChart = (props) => {
-  const { chartOptions, parsedDonations } = props;
+const DonationChart = () => {
+  const { chartOptions, parsedDonations } = useDonationChart();
 
   if (!parsedDonations || !parsedDonations[0]) {
     return null;
@@ -16,7 +15,7 @@ const DonationChart = (props) => {
   return (
     <div className="donation-chart">
       <div className="chips-wrapper">
-        <Chips colors={colors} />
+        <Chips />
         <Chart
           chartType="LineChart"
           width="100%"
@@ -32,11 +31,6 @@ const DonationChart = (props) => {
       </div>
     </div>
   );
-};
-
-DonationChart.propTypes = {
-  chartOptions: PropTypes.object.isRequired,
-  parsedDonations: PropTypes.array.isRequired,
 };
 
 export default DonationChart;

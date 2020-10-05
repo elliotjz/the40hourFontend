@@ -1,4 +1,3 @@
-import { usePage } from "../hooks/usePage";
 import Actions from "./Actions";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -9,7 +8,6 @@ import { useContext } from "react";
 import { AppContext } from "../contexts/AppContext";
 
 const Page = () => {
-  const { chartOptions, parsedDonations } = usePage();
   const { isLoading } = useContext(AppContext);
   return (
     <div className="page">
@@ -20,10 +18,7 @@ const Page = () => {
         </div>
       ) : (
         <>
-          <DonationChart
-            chartOptions={chartOptions}
-            parsedDonations={parsedDonations}
-          />
+          <DonationChart />
           <DomainControl />
         </>
       )}
