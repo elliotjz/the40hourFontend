@@ -16,13 +16,13 @@ const Actions = () => {
       >
         {isLoading ? "Refreshing Data..." : "Refresh Data"}
       </button>
-      <button
+      {/* <button
         className="action"
         onClick={scrapeDonationPages}
         disabled={isLoading}
       >
         Scrape
-      </button>
+      </button> */}
     </div>
   );
 };
