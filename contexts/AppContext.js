@@ -58,16 +58,11 @@ const useAppData = () => {
   const onChipClick = useCallback((name) => {
     // If excluded people has been set in state, use that
     // Otherwise, use the props to calculate it
-    setExcludedPeople((oldExclPeople) => {
-      const newExclPeople = [...oldExclPeople];
-      // Add or remove the name that was clicked
-      if (newExclPeople.includes(name)) {
-        const index = newExclPeople.indexOf(name);
-        newExclPeople.splice(index, 1);
-      } else {
-        newExclPeople.push(name);
-      }
-      return newExclPeople;
+    setExcludedPeople((exclPeople) => {
+      const wasExcluded = exclPeople.includes(name);
+      return wasExcluded
+        ? exclPeople.filter((excludedPlayer) => excludedPlayer !== name)
+        : [...exclPeople, name];
     });
   });
 
