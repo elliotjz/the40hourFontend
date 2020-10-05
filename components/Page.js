@@ -9,10 +9,7 @@ import LoadingIndicator from "./LoadingIndicator";
 const Page = () => {
   const {
     chartOptions,
-    donorAmounts,
-    excludedPeople,
     isLoading,
-    onChipClick,
     parsedDonations,
     percentageOfTarget,
     totalAmount,
@@ -35,9 +32,6 @@ const Page = () => {
         <>
           <DonationChart
             chartOptions={chartOptions}
-            donorAmounts={donorAmounts}
-            excludedPeople={excludedPeople}
-            onChipClick={onChipClick}
             parsedDonations={parsedDonations}
           />
           <DomainControl />

@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { AppContext } from "../contexts/AppContext";
 
 const truncateName = (name, n) =>
   name.length > n ? `${name.substr(0, n - 1)}...` : name;
 
 const Chips = (props) => {
-  const { donorAmounts, colors, onClick, excludedPeople } = props;
+  const { colors } = props;
+  const { donorAmounts, excludedPeople, onChipClick } = useContext(AppContext);
 
   return (
     <div className="chips">
@@ -19,7 +21,7 @@ const Chips = (props) => {
         return (
           <button
             type="button"
-            onClick={() => onClick(player[0])}
+            onClick={() => onChipClick(player[0])}
             key={index}
             className="chip"
             style={{
@@ -37,10 +39,7 @@ const Chips = (props) => {
 };
 
 Chips.propTypes = {
-  donorAmounts: PropTypes.array.isRequired,
   colors: PropTypes.array.isRequired,
-  onClick: PropTypes.func.isRequired,
-  excludedPeople: PropTypes.array.isRequired,
 };
 
 export default Chips;

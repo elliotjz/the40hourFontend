@@ -7,24 +7,13 @@ import Chips from "./Chips";
 import LoadingIndicator from "./LoadingIndicator";
 
 const DonationChart = (props) => {
-  const {
-    chartOptions,
-    donorAmounts,
-    excludedPeople,
-    onChipClick,
-    parsedDonations,
-  } = props;
+  const { chartOptions, parsedDonations } = props;
 
   return (
     <div className="donation-chart">
       <div className="chips-wrapper">
-        <Chips
-          donorAmounts={donorAmounts}
-          colors={colors}
-          onClick={onChipClick}
-          excludedPeople={excludedPeople}
-        />
-        {parsedDonations[0].length > 1 && (
+        <Chips colors={colors} />
+        {parsedDonations && parsedDonations[0].length > 1 && (
           <div>
             <Chart
               chartType="LineChart"
@@ -46,7 +35,8 @@ const DonationChart = (props) => {
 };
 
 DonationChart.propTypes = {
-  donationHistory: PropTypes.array.isRequired,
+  chartOptions: PropTypes.object.isRequired,
+  parsedDonations: PropTypes.array.isRequired,
 };
 
 export default DonationChart;
